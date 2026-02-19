@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Reset daily generation credits
         run: |
+          if [ -z "${{ secrets.CRON_SECRET }}" ]; then
+            echo "CRON_SECRET is not configured, skipping credit reset"
+            exit 0
+          fi
+          
           response=$(curl -s -w "\n%{http_code}" -X POST \
             "https://prompts.chat/api/cron/reset-credits" \
             -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}")

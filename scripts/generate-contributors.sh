@@ -40,6 +40,10 @@ import csv
 import subprocess
 import os
 import io
+import sys
+
+# Increase field size limit to handle large prompt fields
+csv.field_size_limit(sys.maxsize)
 
 project_dir = os.environ.get('PROJECT_DIR', '.')
 csv_file = os.path.join(project_dir, 'prompts.csv')
